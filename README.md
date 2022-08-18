@@ -18,7 +18,7 @@ One first run it will generate a config file under `/.worm/config`.
 Under the boot section, just edit the first part of each table to be the text shown on screen, and the second to the command (with or without arguments) that you'd like to run.
 
 Example:
-```json
+```lua
 ["boot"]={
     {"Art Class (man I hated art class)","paint fridge_picture"},
     {"It's 4am get off minecraft", "shutdown"}
