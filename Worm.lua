@@ -1,4 +1,4 @@
--- WORM Bootloader by Fisher Medders (http://medde.rs/) 08/18/22
+-- WORM Bootloader by Fisher Medders (http://medde.rs/) 08/18/22, 08/21/23
 args = {...}
 
 -- if you prefer a more suckless edit it yourself kind of thing, just edit the config table below :)
@@ -35,7 +35,7 @@ if useConfig then
 end
 
 print("Detecting Basalt Library")
-if not fs.exists("/.worm/Basalt.lua") then
+if not fs.exists("/lib/basalt.lua") then
     print("Basalt Library Not Found!")
     print("Basalt Library can be found at basalt.madefor.cc")
     print("Downloading Basalt Lib")
@@ -44,12 +44,12 @@ if not fs.exists("/.worm/Basalt.lua") then
         print("Making .worm directory")
     end
     sleep(1)
-    shell.run("pastebin run ESs1mg7P packed true /.worm/Basalt")
+    shell.run("wget run https://basalt.madefor.cc/install.lua release latest.lua /lib/basalt.lua")
 end
 
-local basalt = require("Basalt")
-
-local main = basalt:createFrame():setBackground(colors[config["backgroundColor"]])
+local basalt = require("/lib/basalt")
+print(1)
+local main = basalt.createFrame():setBackground(colors[config["backgroundColor"]])
 
 function addToString(add, amount)
     local str = ""
@@ -58,9 +58,9 @@ function addToString(add, amount)
     end
     return str
 end
-
+print(2)
 function addCenterLabel(ident, text, y)
-    local label = main:addLabel(ident):setText(text):setPosition("parent.w/2-"..#text/2, y):setForeground(colors[config["foregroundColor"]])
+    local label = main:addLabel(ident):setText(text):setPosition("{parent.w/2-".. #text/2 .."}", y):setForeground(colors[config["foregroundColor"]])
     return label
 end
 
@@ -77,22 +77,22 @@ function drawBox()
         table.insert(main:addLabel("topBarRight"..i):setPosition(pW-1,3+i):setText("\149"):setBackground(colors[config["backgroundColor"]]):setForeground(colors[config["foregroundColor"]]),#box-1)
     end
 end
-
-local tagline = addCenterLabel("tagline", "GNU WORM version 0.01", 2)
-local instructionsOne = addCenterLabel("inst1", "Use the \24 and \25 keys to select which entry", "parent.h-3")
-local instructionsTwo = addCenterLabel("inst2", "is highlighted. Press enter to boot selected OS", "parent.h-2")
-local instructionsTwo = addCenterLabel("inst3", "or 'c' for a command line.", "parent.h-1")
+print(5)
+local tagline = addCenterLabel("tagline", "GNU WORM version 0.02", 2)
+local instructionsOne = addCenterLabel("inst1", "Use the \24 and \25 keys to select which entry", "{parent.h-3}")
+local instructionsTwo = addCenterLabel("inst2", "is highlighted. Press enter to boot selected OS", "{parent.h-2}")
+local instructionsTwo = addCenterLabel("inst3", "or 'c' for a command line.", "{parent.h-1}")
 
 drawBox()
 
 local list = main:addList("list")
-list:setSize("parent.w-4", "parent.h-8")
+list:setSize("{parent.w-5}", "{parent.h-9}")
 list:setPosition(3, 4)
 list:setBackground(colors[config["backgroundColor"]])
 for i = 1,#config.boot do
     list:addItem(" " .. config.boot[i][1], colors[config["backgroundColor"]], colors[config["foregroundColor"]], config.boot[i][2])
 end
-list:setSelectedItem(colors[config["foregroundColor"]], colors[config["backgroundColor"]], true)
+list:selectItem(colors[config["foregroundColor"]], colors[config["backgroundColor"]], true)
 
 function scrollUp()
     if list:getItemIndex() ~= 1 then
