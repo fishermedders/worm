@@ -1,4 +1,4 @@
--- WORM Bootloader by Fisher Medders (http://medde.rs/) 08/18/22
+-- WORM Bootloader by Fisher Medders (http://medde.rs/) 08/18/22, 08/21/23
 args = {...}
 
 -- if you prefer a more suckless edit it yourself kind of thing, just edit the config table below :)
@@ -92,7 +92,7 @@ list:setBackground(colors[config["backgroundColor"]])
 for i = 1,#config.boot do
     list:addItem(" " .. config.boot[i][1], colors[config["backgroundColor"]], colors[config["foregroundColor"]], config.boot[i][2])
 end
-list:selectItem(colors[config["foregroundColor"]], colors[config["backgroundColor"]], true)
+list:setSelectionColor(colors[config["foregroundColor"]], colors[config["backgroundColor"]], true)
 
 function scrollUp()
     if list:getItemIndex() ~= 1 then
