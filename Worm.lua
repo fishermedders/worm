@@ -1,4 +1,4 @@
--- WORM Bootloader by Fisher Medders (http://medde.rs/) 08/18/22, 08/21/23
+-- WORM Bootloader by Fisher Medders (http://medde.rs/) 08/18/22
 args = {...}
 
 -- if you prefer a more suckless edit it yourself kind of thing, just edit the config table below :)
@@ -48,7 +48,7 @@ if not fs.exists("/lib/basalt.lua") then
 end
 
 local basalt = require("/lib/basalt")
-print(1)
+
 local main = basalt.createFrame():setBackground(colors[config["backgroundColor"]])
 
 function addToString(add, amount)
@@ -58,7 +58,7 @@ function addToString(add, amount)
     end
     return str
 end
-print(2)
+
 function addCenterLabel(ident, text, y)
     local label = main:addLabel(ident):setText(text):setPosition("{parent.w/2-".. #text/2 .."}", y):setForeground(colors[config["foregroundColor"]])
     return label
@@ -77,7 +77,7 @@ function drawBox()
         table.insert(main:addLabel("topBarRight"..i):setPosition(pW-1,3+i):setText("\149"):setBackground(colors[config["backgroundColor"]]):setForeground(colors[config["foregroundColor"]]),#box-1)
     end
 end
-print(5)
+
 local tagline = addCenterLabel("tagline", "GNU WORM version 0.02", 2)
 local instructionsOne = addCenterLabel("inst1", "Use the \24 and \25 keys to select which entry", "{parent.h-3}")
 local instructionsTwo = addCenterLabel("inst2", "is highlighted. Press enter to boot selected OS", "{parent.h-2}")
